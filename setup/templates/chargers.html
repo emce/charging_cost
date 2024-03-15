@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    .::. Urządzenia .::.
+{% endblock title %}
+
+{% block content %}
+    <div class="uk-align-center">
+        <table class="uk-table uk-table-striped">
+            <thead>
+            <tr>
+                <th>Nr</th>
+                <th>Nazwa</th>
+                <th>ID urządzenia</th>
+                <th>Nazwa instalacji</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for charger in chargers %}
+                <tr>
+                    <td>{{ forloop.counter }}.</td>
+                    <td>{{ charger.name }}</td>
+                    <td>{{ charger.device_id }}</td>
+                    <td>{{ charger.installation_name }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <form method="get" action="{% url 'wizard_history' %}">
+            <div class="uk-margin uk-flex uk-flex-center uk-padding">
+                <input class="uk-button uk-button-primary" type="submit" value="Przejdź do Historii ładowania">
+            </div>
+        </form>
+    </div>
+{% endblock content %}

@@ -1,0 +1,90 @@
+{% load static %}
+{% load repeatedblocks %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimal-ui"/>
+    <meta name="msapplication-TileColor" content="#efefef"/>
+    <meta name="msapplication-TileImage" content="https://chalkboard.space/assets/logo192.png"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="#efefef"/>
+    <meta name="apple-mobile-web-app-title" content="Koszty ładowania - Zaptec"/>
+    <meta name="application-name" content="Koszty ładowania - Zaptec"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="theme-color" content="#efefef"/>
+    <meta name="robots" content="index,follow"/>
+    <meta name="author" content="mobiGEEK Michał Ćwikliński"/>
+    <meta name="description" content="Oblicz koszty ładowania na ładowarkach firmy Zaptec."/>
+    <meta property="og:description" content="Oblicz koszty ładowania na ładowarkach firmy Zaptec."/>
+    <meta property="og:image" content="https://chalkboard.space/assets/thumbnail.png"/>
+    <meta property="og:locale" content="en"/>
+    <meta property="og:site_name" content="Koszty ładowania - Zaptec"/>
+    <meta property="og:title" content="Koszty ładowania - Zaptec"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://chalkboard.space"/>
+    <meta property="article:author" content/>
+    <meta property="article:section" content="website"/>
+    <link rel="shortcut icon" href="https://chalkboard.space/assets/favicon.png"/>
+    <link rel="apple-touch-icon" href="https://chalkboard.space/assets/logo192.png"/>
+    <link rel="manifest" href="https://chalkboard.space/manifest.json"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <link rel="stylesheet" href="{% static 'css/uikit.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/site.css' %}"/>
+    <script src="{% static 'js/uikit.min.js' %}"></script>
+    <script src="{% static 'js/uikit-icons.min.js' %}"></script>
+    <script src="{% static 'js/uikit-fa-all-icons.min.js' %}"></script>
+    <title>Koszty ładowania - Zaptec{% repeated_block title %}{% endblock %}</title>
+    <style>
+        .uk-table-header-small {
+            font-size: .6rem !important;
+            line-height: .6rem !important;
+            text-transform: capitalize !important;
+        }
+
+        .uk-table-cell-small {
+            font-size: .8rem !important;
+            line-height: .8rem !important;
+        }
+    </style>
+</head>
+<body>
+<div class="uk-container uk-flex uk-flex-center uk-flex-top">
+    <div class="uk-width-xlarge uk-background-muted uk-height-viewport">
+        <div class="uk-logo uk-dark uk-background-secondary uk-inline">
+            <img src="{% static 'img/charging_logo.svg' %}" width="665" height="302" alt="Koszt ładowania">
+            <div class="uk-padding uk-position-top-left uk-light">
+                <h4 class="uk-margin-remove uk-text-uppercase">{% repeat title %}</h4>
+            </div>
+        </div>
+        <nav class="uk-dark uk-navbar-container uk-background-secondary" uk-navbar>
+            <div class="uk-navbar-left uk-margin-left">
+                <ul class="uk-navbar-nav">
+                    <li{% if request.resolver_match.url_name == "history_index" %} class="uk-active"{% endif %}><a href="{% url 'history_index' %}">Strona Główna</a></li>
+                    <li{% if request.resolver_match.url_name == "history_details" %} class="uk-active"{% endif %}><a href="{% url 'history_details' %}">Szczegóły</a></li>
+                </ul>
+            </div>
+            <div class="uk-navbar-right uk-margin-right">
+                <ul class="uk-navbar-nav">
+                    <li><a href="{% url 'history_settings' %}">Ustawienia</a></li>
+                </ul>
+            </div>
+        </nav>
+        {% block content %}{% endblock content %}
+        {% if messages %}
+            <div class="uk-margin">
+            {% for message in messages %}
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}<div class="uk-alert-danger" uk-alert>{{ message }}</div>{% endif %}
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}<div class="uk-alert-primary" uk-alert>{{ message }}</div>{% endif %}
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}<div class="uk-alert-success" uk-alert>{{ message }}</div>{% endif %}
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}<div class="uk-alert-warning" uk-alert>{{ message }}</div>{% endif %}
+            {% endfor %}
+            </div>
+        {% endif %}
+        <div class="uk-background-secondary uk-text-right">
+            <div class="uk-text-light uk-text-small uk-padding-small">Michał 2024</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}
+    .::. Ustawienia aplikacji .::.
+{% endblock title %}
+
+{% block content %}
+    <form class="uk-form-stacked uk-align-center uk-padding uk-padding-remove-vertical" method="post" action="{% url 'wizard_price' %}">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="uk-section uk-section-muted">
+            <div class="uk-container">
+                <h4>Taryfa energii elektrycznej</h4>
+                <div class="uk-margin">
+                    <label for="{{ form.type.id_for_label }}">Taryfa:</label>
+                    {% render_field form.type class+="uk-select" %}
+                    {{ form.type.errors }}
+                </div>
+                <div class="uk-margin">
+                    <label for="{{ form.price_day.id_for_label }}">Cena w strefie dziennej:</label>
+                    {% render_field form.price_day class+="uk-input" %}
+                    {{ form.price_day.errors }}
+                </div>
+                <div class="uk-margin">
+                    <label for="{{ form.price_night.id_for_label }}">Cena w strefie nocnej/weekendowej:</label>
+                    {% render_field form.price_night class+="uk-input" %}
+                    {{ form.price_night.errors }}
+                </div>
+            </div>
+            <div class="uk-section uk-section-muted">
+                <div class="uk-container">
+                    <h4>Konto</h4>
+                    <div class="uk-alert-primary" uk-alert>
+                        <div class="uk-flex uk-child-width-1-2 uk-text-center uk-flex-middle" uk-grid>
+                            <div class="uk-width-auto uk-text-center">
+                                <span uk-icon="icon: info; ratio: 2"></span>
+                            </div>
+                            <div class="uk-width-expand uk-text-left">
+                                Hasło należy zmienić w momencie, kiedy zostało zmienione hasło do aplikacji Zaptec. W
+                                innym przypadku system nie pozwoli na zmianę hasła.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <fieldset class="uk-fieldset uk-align-center">
+                        <div class="uk-margin">
+                            <label for="{{ form.old_password.id_for_label }}">Obecne hasło:</label>
+                            {% render_field form.old_password class+="uk-select" %}
+                            {{ form.old_password.errors }}
+                        </div>
+                        <div class="uk-margin">
+                            <label for="{{ form.new_password.id_for_label }}">Nowe hasło:</label>
+                            {% render_field form.new_password class+="uk-input" %}
+                            {{ form.new_password.errors }}
+                        </div>
+                        <div class="uk-margin">
+                            <label for="{{ form.repeat_password.id_for_label }}">Powtórz nowe hasło:</label>
+                            {% render_field form.repeat_password class+="uk-input" %}
+                            {{ form.repeat_password.errors }}
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="uk-text-center uk-margin">
+                <input class="uk-button uk-button-primary" type="submit" value="Zapisz ustawienia">
+            </div>
+        </div>
+    </form>
+{% endblock content %}

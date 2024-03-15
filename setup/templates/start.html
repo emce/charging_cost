@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}
+    .::. Logowanie Zaptec .::. 
+{% endblock title %}
+
+{% block content %}
+    <div class="uk-padding">
+        <div class="uk-align-center">
+            <form class="uk-form-stacked uk-align-center" method="post" action="{% url 'wizard_start' %}">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                <fieldset class="uk-fieldset uk-align-center">
+                    <div class="uk-margin">
+                        <label for="{{ form.email.id_for_label }}">Email:</label>
+                        {% render_field form.email class+="uk-input" %}
+                        {{ form.email.errors }}
+                    </div>
+                    <div class="uk-margin">
+                        <label for="{{ form.password.id_for_label }}">Hasło:</label>
+                        {% render_field form.password class+="uk-input" %}
+                        {{ form.password.errors }}
+                    </div>
+                </fieldset>
+                <div class="uk-margin uk-flex uk-flex-center">
+                    <input class="uk-button uk-button-primary" type="submit" value="Zaloguj">
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

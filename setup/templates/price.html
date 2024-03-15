@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}
+    .::. Taryfa energii elektrycznej .::.
+{% endblock title %}
+
+{% block content %}
+    <div class="uk-padding uk-align-center">
+        <form class="uk-form-stacked uk-align-center" method="post" action="{% url 'wizard_price' %}">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <fieldset class="uk-fieldset uk-align-center">
+                <div class="uk-margin">
+                    <label for="{{ form.type.id_for_label }}">Taryfa:</label>
+                    {% render_field form.type class+="uk-select" %}
+                    {% if form.type.errors.length > 0 %}<div class="uk-alert-danger" uk-alert>{{ form.type.errors }}</div>{% endif %}
+                </div>
+                <div class="uk-margin">
+                    <label for="{{ form.price_day.id_for_label }}">Cena w strefie dziennej:</label>
+                    {% render_field form.price_day class+="uk-input" %}
+                    {% if form.price_day.errors.length > 0 %}<div class="uk-alert-danger" uk-alert>{{ form.price_day.errors }}</div>{% endif %}
+                </div>
+                <div class="uk-margin">
+                    <label for="{{ form.price_night.id_for_label }}">Cena w strefie nocnej/weekendowej:</label>
+                    {% render_field form.price_night class+="uk-input" %}
+                    {% if form.price_night.errors.length > 0 %}<div class="uk-alert-danger" uk-alert>{{ form.price_night.errors }}</div>{% endif %}
+                </div>
+            </fieldset>
+            <div class="uk-margin uk-flex uk-flex-center">
+                <input class="uk-button uk-button-primary" type="submit" value="Zapisz ustawienia">
+            </div>
+        </form>
+    </div>
+{% endblock content %}

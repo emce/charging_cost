@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    .::. Statystyki ładowania .::.
+{% endblock title %}
+
+{% block content %}
+    <div class="uk-padding">
+        <div class="uk-child-width-1-2@s uk-grid-collapse uk-text-center" uk-grid>
+            <div>
+                <div class="uk-tile uk-tile-default">
+                    <h4 class="uk-heading-line uk-text-center"><span class="uk-text-muted">Ilość ładowań</span></h4>
+                    <div class="uk-text-lead uk-text-bold">
+                        <span class="uk-text-bold">{{ total_charging }}</span>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="uk-tile uk-tile-primary">
+                    <h4 class="uk-heading-line uk-text-center"><span class="uk-text-muted">Całkowita energia</span>
+                    </h4>
+                    <div class="uk-text-lead">
+                        <span class="uk-text-bold">{{ total_energy }}</span>kW
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="uk-tile uk-tile-primary">
+                    <h4 class="uk-heading-line uk-text-center"><span class="uk-text-muted">Ilość ładowarek</span>
+                    </h4>
+                    <div class="uk-text-lead uk-text-bold">
+                        <span class="uk-text-bold">{{ chargers }}</span>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="uk-tile uk-tile-default">
+                    <h4 class="uk-heading-line uk-text-center"><span class="uk-text-muted">Całkowity koszt</span>
+                    </h4>
+                    <div class="uk-text-lead uk-text-bold">
+                        <span class="uk-text-bold">{{ total_cost }}</span>PLN
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="uk-margin"></div>
+        <form method="get" action="{% url 'history_details' %}">
+            <div class="uk-margin uk-flex uk-flex-right">
+                <input class="uk-button uk-button-text" type="submit" value="Przejdź do szczegółów">
+            </div>
+        </form>
+    </div>
+{% endblock content %}

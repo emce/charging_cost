@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    .::. Historia ładowania .::.
+{% endblock title %}
+
+{% block content %}
+    <div class="uk-align-center">
+        <table class="uk-table uk-table-striped">
+            <thead>
+            <tr>
+                <th>Nr</th>
+                <th>Urządzenie</th>
+                <th>Start ładowania</th>
+                <th>Koniec ładowania</th>
+                <th>Energia</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in history %}
+                <tr>
+                    <td>{{ forloop.counter }}.</td>
+                    <td>{{ item.device_name }}</td>
+                    <td>{{ item.start }}</td>
+                    <td>{{ item.end }}</td>
+                    <td class="uk-text-bold">{{ item.energy }}kW</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <form method="get" action="{% url 'wizard_price' %}">
+            <div class="uk-margin uk-flex uk-flex-center uk-padding">
+                <input class="uk-button uk-button-primary" type="submit" value="Przejdź do Taryfy Energii">
+            </div>
+        </form>
+    </div>
+{% endblock content %}

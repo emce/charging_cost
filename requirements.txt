@@ -1,0 +1,5 @@
+Django
+requests
+django-widget-tweaks
+holidays
+django-macros

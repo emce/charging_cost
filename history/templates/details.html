@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load energy_costs %}
+{% load static %}
+
+{% block title %}
+    .::. Historia ładowania - {{ current|date:"F Y" }} .::.
+{% endblock title %}
+
+{% block content %}
+    <div class="uk-align-center">
+        <table class="uk-background-default uk-table uk-table-small uk-table-striped uk-table-middle">
+            <thead>
+            <tr class="uk-table-middle">
+                <th class="uk-text-center">Nr</th>
+                <th class="uk-text-center">Urządzenie</th>
+                <th class="uk-text-center">Okres ładowania</th>
+                <th class="uk-text-center">Energia</th>
+                <th class="uk-text-center">Koszt</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in history %}{% energy_cost item cost price_day price_night as cost_price %}
+                <tr class="uk-text-center">
+                    <td>{{ forloop.counter }}.</td>
+                    <td>{{ item.device_name }}</td>
+                    <td class="uk-table-cell-small">
+                        {{ item.start|date:"j M, G:i" }}<br/>
+                        {{ item.end|date:"j M, G:i" }}
+                    </td>
+                    <td><span class="uk-text-bold">{{ item.energy|floatformat:2 }}</span>kW</td>
+                    <td><span class="uk-text-bolder">{{ cost_price|floatformat:2 }}</span>PLN</td>
+                </tr>
+                {% if forloop.last %}
+                    <tr class="uk-text-center">
+                        <td class="uk-text-right" colspan="3">Podsumowanie:</td>
+                        <td class="uk-text-large"><span class="uk-text-bolder">{{ total_energy|floatformat:2 }}</span>kW
+                        </td>
+                        <td class="uk-text-large"><span class="uk-text-bolder">{{ total_cost|floatformat:2 }}</span>PLN
+                        </td>
+                    </tr>
+                {% endif %}
+            {% empty %}
+                <tr>
+                    <td colspan="5" class="uk-text-center">brak ładowania w zadanym okresie</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="uk-padding" uk-grid>
+            <div class="uk-width-1-3">
+                <a href="{% url 'history_details' %}?rok={{ previous|date:"Y" }}&miesiac={{ previous|date:"n" }}">Poprzedni
+                    miesiąc</a>
+            </div>
+            <div class="uk-width-1-3">&nbsp;</div>
+            <div class="uk-width-1-3 uk-text-right">
+                {% if current < today %}
+                    <a href="{% url 'history_details' %}?rok={{ next|date:"Y" }}&miesiac={{ next|date:"n" }}">Następny
+                        miesiąc</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}
