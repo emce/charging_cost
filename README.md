@@ -30,7 +30,7 @@ Application can be deployed and run as docker image with compose plugin:
 version: '3'
 services:
   web:
-    container_name: charging_stats
+    container_name: charging_cost
     build:
       context: .
       dockerfile: Dockerfile
@@ -42,7 +42,7 @@ services:
       - ./:/code
     command: sh ./entrypoint.sh
 
-  nginx:
+  charging_nginx:
     build: ./nginx
     ports:
       - "9081:9081"
