@@ -41,8 +41,6 @@ services:
     volumes:
       - ./:/code
     command: sh ./entrypoint.sh
-    networks:
-      - outside
 
   nginx:
     build: ./nginx
@@ -53,8 +51,6 @@ services:
       - ./:/code
     depends_on:
       - web
-    networks:
-      - outside
 
 volumes:
   static:
