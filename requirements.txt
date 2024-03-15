@@ -3,3 +3,5 @@ requests
 django-widget-tweaks
 holidays
 django-macros
+django-cors-headers
+gunicorn
