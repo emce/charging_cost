@@ -19,7 +19,7 @@ class HistoryView(TemplateView):
             history = []
             for charger in Charger.objects.all():
                 response = RestClient.charging_history(self.request.user.token,
-                                                       charger.device_id, start, end)
+                                                       charger.id, start, end)
                 for json in response.get(RestResponse.DATA):
                     item = History(
                         id=json.get("Id"),

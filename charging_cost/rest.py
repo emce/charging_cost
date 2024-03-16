@@ -1,10 +1,8 @@
 import requests
 
-from charging_cost.settings import DEBUG
-
 
 class RestUrl:
-    SERVER_URL = "http://localhost:8000/rest/" if DEBUG else "https://api.zaptec.com/"
+    SERVER_URL = "https://api.zaptec.com/"
     # Post Request
     # application/x-www-form-urlencoded
     AUTH = "oauth/token/"

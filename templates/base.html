@@ -72,7 +72,7 @@
         </nav>
         {% block content %}{% endblock content %}
         {% if messages %}
-            <div class="uk-margin">
+            <div class="uk-margin uk-text-center">
             {% for message in messages %}
                 {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}<div class="uk-alert-danger" uk-alert>{{ message }}</div>{% endif %}
                 {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}<div class="uk-alert-primary" uk-alert>{{ message }}</div>{% endif %}
