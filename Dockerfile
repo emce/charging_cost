@@ -5,6 +5,7 @@ FROM python:3.11-slim
 ENV PYTHONUNBUFFERED 1
 
 # Create and set the working directory
+RUN mkdir /logs
 RUN mkdir /code
 WORKDIR /code
 
