@@ -14,6 +14,8 @@ from pathlib import Path
 
 from django.urls import reverse_lazy
 
+from charging_cost.rest import RestUrl
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -142,6 +144,6 @@ LOGIN_URL = reverse_lazy('wizard_start')
 
 SESSION_SAVE_EVERY_REQUEST = True
 
-CSRF_TRUSTED_ORIGINS = ['https://zaptec.cwiklin.ski', 'https://zaptec.cwiklinski.mobi', 'http://localhost:1337']
+CSRF_TRUSTED_ORIGINS = ['https://charging.cwiklin.ski', 'https://charging.cwiklinski.mobi', RestUrl.SERVER_URL]
 
 CORS_ALLOWED_ORIGINS = ['https://*.cwiklin.ski', 'https://*.cwiklinski.mobi']

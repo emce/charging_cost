@@ -6,7 +6,6 @@ from django.urls import reverse_lazy
 from django.views.generic import FormView
 
 from charging_cost.rest import RestClient, RestError, RestResponse
-from charging_cost.session import SessionData
 from history.models import ZaptecUser
 
 
@@ -26,7 +25,7 @@ class StartView(FormView):
         return reverse_lazy("wizard_chargers")
 
     def get_initial(self):
-        if self.request.method == 'GET' and self.request.session.has_key(SessionData.AUTH_BEARER_TOKEN):
+        if self.request.user.is_authenticated:
             redirect("history_index")
 
     def form_valid(self, form):
