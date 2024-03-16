@@ -1,7 +1,7 @@
 version: '3'
 services:
   web:
-    container_name: charging_cost
+    container_name: charging
     build:
       context: .
       dockerfile: Dockerfile
@@ -16,7 +16,7 @@ services:
     networks:
       - outside
 
-  charging_nginx:
+  nginx:
     build: ./nginx
     ports:
       - "9081:9081"
