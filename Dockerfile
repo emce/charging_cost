@@ -3,8 +3,6 @@ FROM python:3.11-slim
 
 # Set environment variables
 ENV PYTHONUNBUFFERED 1
-#This means that as soon as a message is generated (e.g., by a print statement), it's immediately visible, making it easier to see real-time output and diagnose issues more quickly, especially in environments like Docker where log messages may be crucial for debugging.
-ENV DJANGO_SETTINGS_MODULE charging_cost.settings
 
 # Create and set the working directory
 RUN mkdir /code
