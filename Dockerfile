@@ -6,6 +6,7 @@ ENV PYTHONUNBUFFERED 1
 
 # Create and set the working directory
 RUN mkdir /logs
+RUN chmod 777 /logs
 RUN mkdir /code
 WORKDIR /code
 
