@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
-from django.shortcuts import redirect
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import FormView
 
@@ -21,12 +21,13 @@ class StartView(FormView):
     template_name = 'start.html'
     form_class = StartForm
 
+    def get(self, request, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            return HttpResponseRedirect(reverse_lazy('history_index'))
+        return super().get(request, *args, **kwargs)
+
     def get_success_url(self):
         return reverse_lazy("wizard_chargers")
-
-    def get_initial(self):
-        if self.request.user.is_authenticated:
-            redirect("history_index")
 
     def form_valid(self, form):
         try:
