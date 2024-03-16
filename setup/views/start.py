@@ -32,7 +32,7 @@ class StartView(FormView):
     def form_valid(self, form):
         try:
             json = form.authorise(self.request)
-            local_user = ZaptecUser.objects.create(
+            local_user = ZaptecUser.objects.update_or_create(
                 email=form.cleaned_data.get("email"),
                 token=json.get(RestResponse.AUTH_BEARER_TOKEN),
                 refresh_token=json.get(RestResponse.AUTH_REFRESH_TOKEN))
@@ -44,9 +44,6 @@ class StartView(FormView):
                 password=form.cleaned_data.get("password"))
             if login_user is not None:
                 login(self.request, login_user)
-                local_user.token = json.get(RestResponse.AUTH_BEARER_TOKEN)
-                local_user.refresh_token = json.get(RestResponse.AUTH_REFRESH_TOKEN)
-                local_user.save()
                 return super().form_valid(form)
             else:
                 return super().form_invalid(form)
