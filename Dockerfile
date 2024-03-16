@@ -1,5 +1,5 @@
 # Use an official Python runtime as a parent image
-FROM python:3.11
+FROM python:3.11-slim
 
 # Set environment variables
 ENV PYTHONUNBUFFERED 1
@@ -14,7 +14,7 @@ WORKDIR /code
 COPY . /code/
 
 # Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+RUN python -m pip install --no-cache-dir -r requirements.txt
 
 # Copy the entrypoint script and make it executable
 COPY entrypoint.sh /code/entrypoint.sh
@@ -23,7 +23,6 @@ RUN chmod +x /code/entrypoint.sh
 
 # Expose the port the application runs on
 EXPOSE 9080
-
 
 # Run Django development server
 CMD ["python", "manage.py", "runserver", "0.0.0.0:9080"]
