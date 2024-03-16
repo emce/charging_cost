@@ -54,14 +54,16 @@
         <div class="uk-logo uk-dark uk-background-secondary uk-inline">
             <img src="{% static 'img/charging_logo.svg' %}" width="665" height="302" alt="Koszt ładowania">
             <div class="uk-padding uk-position-top-left uk-light">
-                <h4 class="uk-margin-remove uk-text-uppercase">{% repeat title %}</h4>
+                <h4 class="uk-margin-remove">{% repeat title %}</h4>
             </div>
         </div>
         <nav class="uk-dark uk-navbar-container uk-background-secondary" uk-navbar>
             <div class="uk-navbar-left uk-margin-left">
                 <ul class="uk-navbar-nav">
-                    <li{% if request.resolver_match.url_name == "history_index" %} class="uk-active"{% endif %}><a href="{% url 'history_index' %}">Strona Główna</a></li>
-                    <li{% if request.resolver_match.url_name == "history_details" %} class="uk-active"{% endif %}><a href="{% url 'history_details' %}">Szczegóły</a></li>
+                    <li{% if request.resolver_match.url_name == "history_index" %} class="uk-active"{% endif %}><a
+                            href="{% url 'history_index' %}">Strona Główna</a></li>
+                    <li{% if request.resolver_match.url_name == "history_details" %} class="uk-active"{% endif %}><a
+                            href="{% url 'history_details' %}">Szczegóły</a></li>
                 </ul>
             </div>
             <div class="uk-navbar-right uk-margin-right">
@@ -73,12 +75,16 @@
         {% block content %}{% endblock content %}
         {% if messages %}
             <div class="uk-margin uk-text-center">
-            {% for message in messages %}
-                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}<div class="uk-alert-danger" uk-alert>{{ message }}</div>{% endif %}
-                {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}<div class="uk-alert-primary" uk-alert>{{ message }}</div>{% endif %}
-                {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}<div class="uk-alert-success" uk-alert>{{ message }}</div>{% endif %}
-                {% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}<div class="uk-alert-warning" uk-alert>{{ message }}</div>{% endif %}
-            {% endfor %}
+                {% for message in messages %}
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                        <div class="uk-alert-danger" uk-alert>{{ message }}</div>{% endif %}
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+                        <div class="uk-alert-primary" uk-alert>{{ message }}</div>{% endif %}
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                        <div class="uk-alert-success" uk-alert>{{ message }}</div>{% endif %}
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+                        <div class="uk-alert-warning" uk-alert>{{ message }}</div>{% endif %}
+                {% endfor %}
             </div>
         {% endif %}
         <div class="uk-background-secondary uk-text-right">
