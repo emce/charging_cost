@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
+from django.db import DatabaseError
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import FormView
@@ -32,12 +33,17 @@ class StartView(FormView):
     def form_valid(self, form):
         try:
             json = form.authorise(self.request)
-            local_user = ZaptecUser.objects.update_or_create(
-                email=form.cleaned_data.get("email"),
-                token=json.get(RestResponse.AUTH_BEARER_TOKEN),
-                refresh_token=json.get(RestResponse.AUTH_REFRESH_TOKEN))
-            local_user.set_password(form.cleaned_data.get("password"))
-            local_user.save()
+            try:
+                local_user = ZaptecUser.objects.update_or_create(
+                    username=form.cleaned_data.get("email"),
+                    token=json.get(RestResponse.AUTH_BEARER_TOKEN),
+                    refresh_token=json.get(RestResponse.AUTH_REFRESH_TOKEN))
+                local_user.set_password(form.cleaned_data.get("password"))
+                local_user.save()
+            except DatabaseError:
+                local_user = ZaptecUser.objects.get(email=form.cleaned_data.get("email"))
+                local_user.set_password(form.cleaned_data.get("password"))
+                local_user.save()
             login_user = authenticate(
                 self.request,
                 username=form.cleaned_data.get("email"),

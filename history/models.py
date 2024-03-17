@@ -96,6 +96,7 @@ class ZaptecUser(AbstractBaseUser, PermissionsMixin):
     refresh_token = models.CharField(max_length=150, blank=True, default="")
 
     USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ["token", "refresh_token"]
 
     objects = ZaptecUserManager()
 
