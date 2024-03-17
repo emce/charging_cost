@@ -35,7 +35,7 @@ class StartView(FormView):
             json = form.authorise(self.request)
             try:
                 local_user = ZaptecUser.objects.update_or_create(
-                    username=form.cleaned_data.get("email"),
+                    email=form.cleaned_data.get("email"),
                     token=json.get(RestResponse.AUTH_BEARER_TOKEN),
                     refresh_token=json.get(RestResponse.AUTH_REFRESH_TOKEN))
                 local_user.set_password(form.cleaned_data.get("password"))
